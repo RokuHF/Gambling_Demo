@@ -1,0 +1,37 @@
+<?php
+$money = base64_decode($_COOKIE["PHPSession"]);
+
+
+if ($money < 0) {
+	echo "Your wallet is empty!";
+	die();
+}
+
+
+
+if ($_GET['num'] != NULL)
+{
+$winnum = $_GET['num'];
+echo "Rolling dice. You get 6 balance from getting a " . $winnum . "! <br>";
+$input = array("1", "2", "3","4", "5", "6");
+$rand_keys = array_rand($input, 2);
+$roll = $input[$rand_keys[0]];
+echo "You rolled a: " . $roll;
+if ($winnum == $roll) {
+	# Add +6 to BALANCE
+	$money = $money + 6;
+	setcookie("PHPSession", base64_encode($money));
+
+} else {
+	$money = $money - 6;
+	setcookie("PHPSession", base64_encode($money));
+	if ($money < 0) {
+	echo "<br>Your wallet is empty!";
+	die();
+}
+}
+} else {
+	echo "Please choose a number to roll!";
+}
+echo "<br> <br> Balance: " . number_format($money);
+?>
