@@ -1,0 +1,41 @@
+<?php
+echo "Welcome to The Gambler's Coin Flipper. Are you ready to test your luck??? <br>";
+echo "If you get heads, you get +1 credit! You have 33.33% chance of winning. <br>";
+$input = array("2", "1", "2");
+$rand_keys = array_rand($input, 2);
+$flip = $input[$rand_keys[0]];
+if(!isset($_COOKIE['PHPSession'])) {
+    setcookie('PHPSession', base64_encode(0));
+} else {
+
+
+$money = base64_decode($_COOKIE["PHPSession"]);
+if ($money < 1)
+{
+	echo "Your balance is empty. <br>";
+	echo "Reset money: <a href='http://149.210.230.46/gamble/set.php'> here. </a>";
+	die();
+}
+/** echo $flip . "\n"; **/
+if ($flip == 1)
+{
+	echo "Heads";
+	$money = $money + 1;
+}
+
+if ($flip == 2)
+{
+	echo "Tails";
+	$money = $money - 1;
+}
+
+setcookie("PHPSession", base64_encode($money));
+
+echo "<br> <br> Balance: " . $money;
+
+echo "<br><br><br>";
+echo "Reset money: <a href='http://149.210.230.46/gamble/set.php'> here. </a>";
+}
+
+echo "<br> Client IP: " . $_SERVER['REMOTE_ADDR'];
+?>
