@@ -1,0 +1,7 @@
+<?php
+echo "Your money has been set to 10.";
+setcookie("PHPSession", base64_encode(10));
+echo "<br> Go back: <a href='http://x.x.x.x/gamble/'> here. </a>";
+
+echo "<br> Client IP: " . $_SERVER['REMOTE_ADDR'];
+?>
